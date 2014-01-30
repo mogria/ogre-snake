@@ -23,6 +23,13 @@ class SnakePart : public CollisionBlock {
 class SnakeHead : public SnakePart {
 };
 
+  namespace Blocks {
+    extern const ::Model::EmptyBlock Empty;
+    extern const ::Model::CollisionBlock Collision;
+    extern const ::Model::SnakePart SnakePart;
+    extern const ::Model::SnakeHead SnakeHead;
+  };
+
 };
 
 #endif /* MODEL_BLOCK_H */

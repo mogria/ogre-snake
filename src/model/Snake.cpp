@@ -8,7 +8,7 @@ Snake::Snake(Map& _map, map_coords position, Direction _direction)
     direction(_direction) {
 
   parts.push_back(position);
-  map.set_block<SnakeHead>(position);
+  map.set_block(position, Blocks::SnakeHead);
 }
 
 void Snake::rotate_left() {
@@ -52,7 +52,7 @@ void Snake::grow_part(map_coords grow_position) {
   if(fields_to_grow <= 0) return;
 
   parts.push_back(grow_position);
-  map.set_block<SnakePart>(grow_position);
+  map.set_block(grow_position, Blocks::SnakePart);
   fields_to_grow--;
 }
 

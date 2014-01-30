@@ -21,14 +21,19 @@ Map::Map(map_coords size)
 }
 
 void Map::clear_block(map_coords coord) {
-  this->set_block<EmptyBlock>(coord);
+  this->set_block(coord, Blocks::Empty);
 }
+
+void Map::set_block(map_coords coord, const Block& new_block) {
+  wrap_coords(coord); 
+  blocks[coord.second][coord.first] = &new_block;
+};
 
 void Map::move_block(map_coords coord_from, map_coords coord_to) {
   wrap_coords(coord_from);
   wrap_coords(coord_to);
-  blocks[coord_to.second][coord_to.first] = std::unique_ptr<Block>(
-    blocks[coord_from.second][coord_from.first].get());
+  blocks[coord_to.second][coord_to.first] = 
+    blocks[coord_from.second][coord_from.first];
   this->clear_block(coord_from);
 }
 
@@ -42,5 +47,10 @@ void Map::wrap_coords(map_coords& coord) {
   coord = coords(abs(coord.first) % size_x,
                  abs(coord.second) % size_y);
 }
+
+const std::vector<std::vector<const Block *>> Map::to_array() const {
+  return blocks;
+};
+
 
 }; /* namespace Model */

@@ -3,7 +3,6 @@
 
 #include "Block.h"
 #include <vector>
-#include <memory>
 #include <utility>
 
 
@@ -16,22 +15,20 @@ map_coords coords(map_coord x, map_coord y);
 
 class Map {
   private:
-    std::vector<std::vector<std::unique_ptr<Block>>> blocks;
+    std::vector<std::vector<const Block*>> blocks;
     map_coord size_x;
     map_coord size_y;
   public:
     Map(map_coords size);
 
     void clear_block(map_coords coord);
-    template<class T>
-    void set_block(map_coords coord) {
-      wrap_coords(coord);
-      blocks[coord.second][coord.first] = std::unique_ptr<Block>(new T());
-    };
+    void set_block(map_coords coord, const Block& new_block);
     void move_block(map_coords coord_from, map_coords coord_to);
 
     void move_block_by(map_coords coord,
                        int by_x, int by_y);
+
+    const std::vector<std::vector<const Block *>> to_array() const;
   private:
     void wrap_coords(map_coords& coord);
 };
