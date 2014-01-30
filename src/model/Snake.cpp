@@ -1,16 +1,14 @@
 #include "Snake.h"
 
-Snake::Snake(int pos_x, int pos_y)
-  : Snake(pos_x, pos_y, Direction::UP) {
+namespace Model {
 
-}
-
-Snake::Snake(int pos_x, int pos_y, Direction _direction)
-  : fields_to_grow(0),
+Snake::Snake(Map& _map, map_coords position, Direction _direction)
+  : map(_map),
+    fields_to_grow(0),
     direction(_direction) {
 
-  parts.push_back(std::unique_ptr<SnakePart>(
-    new SnakePart(pos_x, pos_y, true)));
+  parts.push_back(position);
+  map.set_block<SnakeHead>(position);
 }
 
 void Snake::rotate_left() {
@@ -40,21 +38,21 @@ void Snake::grow(unsigned int num_fields) {
 }
 
 void Snake::move() {
-  grow_part();
-  move_body();
-  move_head();
-}
-
-void Snake::grow_part() {
-  if(fields_to_grow <= 0) return;
-
-  // the position of the current last piece
+  // the position of the last piece before moving
   // is the position of the new spawned piece
   // if the snake is growing
-  // we just set the position to (0, 0) because it's
-  // overwritten in move_body() anyway
-  parts.push_back(std::unique_ptr<SnakePart>(
-    new SnakePart(0, 0)));
+  map_coords grow_position = parts.back();
+
+  move_body();
+  move_head();
+  grow_part(grow_position);
+}
+
+void Snake::grow_part(map_coords grow_position) {
+  if(fields_to_grow <= 0) return;
+
+  parts.push_back(grow_position);
+  map.set_block<SnakePart>(grow_position);
   fields_to_grow--;
 }
 
@@ -67,21 +65,20 @@ void Snake::move_body() {
   // the head is moved in move_head()
   auto end = parts.rend();
   end--;
-  for(auto it = parts.rbegin();
-      it != end;
-      it++) {
-    auto part = **it;
-    auto next_part = **++it;
+  for(auto it = parts.rbegin(); it != end; it++) {
+    auto part = *it;
+    auto next_part = *++it;
     it--;
-    part.move_to(next_part);
+    map.move_block(part, next_part);
   }
 }
 
 void Snake::move_head() {
-  auto head = *parts.front();
+  auto head = parts.front();
   bool move_vertical = direction & 1;
   int move_x = move_vertical ? 0 : direction - 1;
   int move_y = move_vertical ? direction - 2 : 0;
-  head.move_by(move_x, move_y);
+  map.move_block_by(head, move_x, move_y);
 }
 
+}; /* namespace Model */

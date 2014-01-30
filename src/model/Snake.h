@@ -1,12 +1,15 @@
-#ifndef MODELS_SNAKE_H
-#define MODELS_SNAKE_H 1
+#ifndef MODEL_SNAKE_H
+#define MODEL_SNAKE_H 1
 
-#include "SnakePart.h"
+#include "Block.h"
+#include "Map.h"
 #include <list> 
 #include <memory>
 
+namespace Model {
 class Snake {
   private:
+    Map& map;
     unsigned int fields_to_grow;
 
 #define NUM_DIRECTIONS (4)
@@ -17,11 +20,10 @@ class Snake {
       DOWN  = 3
     } direction;
 
-    std::list<std::unique_ptr<SnakePart>> parts;
+    std::list<map_coords> parts;
 
   public:
-    Snake(int pos_x, int pos_y); 
-    Snake(int pos_x, int pos_y, Direction direction); 
+    Snake(Map& map, map_coords position, Direction direction); 
 
     void rotate_left();
     void rotate_right();
@@ -35,7 +37,8 @@ class Snake {
   private:
     void move_head();
     void move_body();
-    void grow_part();
+    void grow_part(map_coords grow_position);
+};
 };
 
-#endif /* MODELS_SNAKE_H */
+#endif /* MODEL_SNAKE_H */

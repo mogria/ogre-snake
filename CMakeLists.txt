@@ -3,6 +3,9 @@ project(OGRESNAKE)
 set(OGRESNAKE_SOURCE_PATH ${OGRESNAKE_SOURCE_DIR}/src)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
+
+# set compiler options
+set(CMAKE_CXX_FLAGS "-Wall -g -std=c++11")
 	
 # find all dependencies
 find_package(OGRE REQUIRED)
