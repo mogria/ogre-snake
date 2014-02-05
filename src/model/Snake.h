@@ -23,7 +23,7 @@ class Snake {
     std::list<map_coords> parts;
 
   public:
-    Snake(Map& map, map_coords position, Direction direction); 
+    Snake(Map& map, map_coords position, Direction direction = Direction::UP); 
 
     void rotate_left();
     void rotate_right();

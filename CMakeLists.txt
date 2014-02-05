@@ -40,6 +40,7 @@ foreach(component ${USED_OGRE_COMPONENTS})
 endforeach()
 
 # include directories
+include_directories(${OGRESNAKE_SOURCE_PATH})
 include_directories(${ALL_OGRE_INCLUDE_DIRS})
 include_directories(${OIS_INCLUDE_DIRS})
 include_directories(${BULLET_INCLUDE_DIRS})

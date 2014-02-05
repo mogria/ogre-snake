@@ -6,14 +6,8 @@
 
 #include <boost/scoped_ptr.hpp>
 
-void handleKeyboard(OIS::Keyboard& keyboard, bool& running) {
-  keyboard.capture();
-  if(keyboard.isKeyDown(OIS::KC_ESCAPE)) running = false;
-}
+#include <controller/Main.h>
 
-void handleMouse() {
-
-}
 
 int main() {
 
@@ -55,13 +49,16 @@ int main() {
   OIS::Keyboard* keyboard = static_cast<OIS::Keyboard*>(inputManager->createInputObject(OIS::OISKeyboard, false));
   OIS::Mouse* mouse = static_cast<OIS::Mouse*>(inputManager->createInputObject(OIS::OISMouse, false));
 
-  // main loop
-  bool running = true;
-  while(!window->isClosed() && running) {
-    handleKeyboard(*keyboard, running);
-    handleMouse();
+  Controller::Main controller;
+
+  controller.on_start();
+  while(!window->isClosed() && controller.is_game_finished()) {
+    controller.on_key_input(*keyboard);
+    controller.on_mouse_input(*mouse);
+    controller.on_frame();
     root.renderOneFrame();
   }
+  controller.on_end();
 
   return 0;
 }
