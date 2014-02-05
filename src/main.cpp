@@ -4,7 +4,7 @@
 
 #include <OIS/OIS.h>
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 #include <controller/Main.h>
 
@@ -14,23 +14,23 @@ int main() {
   Ogre::Root root("plugins.cfg");
   if(!root.showConfigDialog()) return EXIT_FAILURE;
 
-  boost::scoped_ptr<Ogre::RenderWindow>
+  std::unique_ptr<Ogre::RenderWindow>
     window(root.initialise(true));
 
-  boost::scoped_ptr<Ogre::SceneManager>
+  std::unique_ptr<Ogre::SceneManager>
     sceneManager(root.createSceneManager(Ogre::ST_GENERIC));
 
   // attach camera to scene
-  boost::scoped_ptr<Ogre::Camera>
+  std::unique_ptr<Ogre::Camera>
     camera(sceneManager->createCamera("MainCamera"));
   camera->setNearClipDistance(5);
   camera->setNearClipDistance(1000);
-  boost::scoped_ptr<Ogre::SceneNode>
+  std::unique_ptr<Ogre::SceneNode>
     cameraNode(sceneManager->getRootSceneNode()->createChildSceneNode());
   cameraNode->attachObject(camera.get());
 
   // render camera to window;
-  boost::scoped_ptr<Ogre::Viewport>
+  std::unique_ptr<Ogre::Viewport>
     viewport(window->addViewport(camera.get()));
   viewport->setClearEveryFrame(true);
 

@@ -4,9 +4,8 @@
 #include <model/Map.h>
 #include <model/Snake.h>
 
+#include <memory>
 #include <OIS/OIS.h>
-
-#include <boost/scoped_ptr.hpp>
 
 namespace Controller {
 using namespace Model;
@@ -14,8 +13,8 @@ using namespace Model;
 class Main {
   private: 
     bool game_finished;
-    boost::scoped_ptr<Map> map;
-    boost::scoped_ptr<Snake> snake;
+    std::unique_ptr<Map> map;
+    std::unique_ptr<Snake> snake;
 
 
     
