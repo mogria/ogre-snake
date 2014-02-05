@@ -2,10 +2,11 @@
 
 namespace Controller {
 
-Main::Main()
+Main::Main(View::Main& _view)
   : game_finished(false),
     map(new Map(coords(24, 30))),
-    snake(new Snake(*map.get(), coords(12, 15))) {
+    snake(new Snake(*map.get(), coords(12, 15))),
+    view(_view) {
 
 }
 
@@ -36,10 +37,12 @@ void Main::on_frame() {
   if(1) {
     on_move();
   }
+
+  view.render(*map.get(), *snake.get());
 }
 
 void Main::on_move() {
-  
+  snake->move();  
 }
 
 

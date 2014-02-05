@@ -49,7 +49,9 @@ int main() {
   OIS::Keyboard* keyboard = static_cast<OIS::Keyboard*>(inputManager->createInputObject(OIS::OISKeyboard, false));
   OIS::Mouse* mouse = static_cast<OIS::Mouse*>(inputManager->createInputObject(OIS::OISMouse, false));
 
-  Controller::Main controller;
+  View::Main view(*window.get(), *sceneManager.get(), *camera.get(), *cameraNode.get(), *viewport.get());
+
+  Controller::Main controller(view);
 
   controller.on_start();
   while(!window->isClosed() && controller.is_game_finished()) {

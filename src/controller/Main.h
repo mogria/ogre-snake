@@ -4,6 +4,8 @@
 #include <model/Map.h>
 #include <model/Snake.h>
 
+#include <view/Main.h>
+
 #include <memory>
 #include <OIS/OIS.h>
 
@@ -15,12 +17,10 @@ class Main {
     bool game_finished;
     std::unique_ptr<Map> map;
     std::unique_ptr<Snake> snake;
-
-
-    
+    View::Main& view;
 
   public:
-    Main();
+    Main(View::Main& view);
     void on_start();
     bool is_game_finished();
     void on_end();
