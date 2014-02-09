@@ -44,8 +44,8 @@ void Map::move_block_by(map_coords coord,
 }
 
 void Map::wrap_coords(map_coords& coord) {
-  coord = coords(abs(coord.first) % size_x,
-                 abs(coord.second) % size_y);
+  coord = coords(coord.first % size_x,
+                 coord.second % size_y);
 }
 
 const std::vector<std::vector<const Block *>> Map::to_array() const {

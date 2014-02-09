@@ -1,5 +1,6 @@
 .gitattributes
 bin
+obj
 
 # VS files
 *.sln      # merge=binary
