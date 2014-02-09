@@ -52,5 +52,9 @@ const std::vector<std::vector<const Block *>> Map::to_array() const {
   return blocks;
 };
 
+map_coords Map::get_size() {
+  return coords(size_x, size_y);
+}
+
 
 }; /* namespace Model */

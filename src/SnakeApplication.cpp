@@ -2,6 +2,7 @@
 #include <OgreColourValue.h>
 
 SnakeApplication::SnakeApplication(void)
+  : map(Model::coords(32, 24))
 {
 }
 
@@ -39,6 +40,20 @@ void SnakeApplication::createScene(void)
   Ogre::Light* light = mSceneMgr->createLight();
   light->setPosition(.0, .0, .0);
   light->setPowerScale(5);
+}
+
+bool SnakeApplication::frameRenderingQueued(const Ogre::FrameEvent& evt) {
+  if(!BaseApplication::frameRenderingQueued(evt)) return false;
+
+  auto blocks = map.to_array();
+  Model::map_coords size = map.get_size();
+  for(Model::map_coord y = 0; y < size.second; y++) {
+    for(Model::map_coord x = 0; x < size.first; x++) {
+      // render block map[y][x]
+    }
+  }
+
+  return true;
 }
 
 

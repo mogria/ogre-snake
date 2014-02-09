@@ -29,6 +29,7 @@ class Map {
                        int by_x, int by_y);
 
     const std::vector<std::vector<const Block *>> to_array() const;
+    map_coords get_size();
   private:
     void wrap_coords(map_coords& coord);
 };
