@@ -3,14 +3,20 @@
 
 #include "BaseApplication.h"
 
+#include <model/Map.h>
+
 class SnakeApplication : public BaseApplication
 {
+private: 
+  Model::Map map;
+  
 public:
-    SnakeApplication(void);
-    virtual ~SnakeApplication(void);
+  SnakeApplication(void);
+  virtual ~SnakeApplication(void);
 
 protected:
-    virtual void createScene(void);
+  virtual void createScene(void);
+	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
 };
 
 #endif /* SNAKE_APPLICATION_H */
