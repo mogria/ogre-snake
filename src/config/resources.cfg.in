@@ -7,8 +7,5 @@ Zip=media/packs/SdkTrays.zip
 [General]
 FileSystem=@OGRE_MEDIA_DIR@/models
 FileSystem=@OGRE_MEDIA_DIR@/cube_scene
-FileSystem=@OGRE_MEDIA_DIR@/materials/scripts
-FileSystem=@OGRE_MEDIA_DIR@/materials/textures
 FileSystem=media/models
-Zip=@OGRE_MEDIA_DIR@/packs/cubemapsJS.zip
 

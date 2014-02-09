@@ -1,4 +1,5 @@
 #include "SnakeApplication.h"
+#include <OgreColourValue.h>
 
 SnakeApplication::SnakeApplication(void)
 {
@@ -15,6 +16,10 @@ void SnakeApplication::createScene(void)
   Ogre::SceneNode* node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
   node->setPosition(0, 0.5, 0);
   node->attachObject(mesh);
+
+  mCamera->lookAt(node->getPosition());
+
+  mSceneMgr->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
 }
 
 
