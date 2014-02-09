@@ -48,7 +48,7 @@ int run()
 		std::string windowHndStr = windowHndStream.str();
 
 		OIS::ParamList specialParameters;
-	//#ifdef OIS_LINUX_PLATTFORM
+	//#ifdef OIS_LINUX_PLATFORM
 		specialParameters.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
 		specialParameters.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
 		specialParameters.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
