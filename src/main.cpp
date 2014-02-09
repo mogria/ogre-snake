@@ -22,8 +22,7 @@ int run()
   Ogre::Root root("plugins.cfg");
   if(!root.showConfigDialog()) return EXIT_FAILURE;
 
-  std::unique_ptr<Ogre::RenderWindow>
-  window(root.initialise(true));
+  Ogre::RenderWindow* window = root.initialise(true);
 
   Ogre::SceneManager* sceneManager =
   root.createSceneManager(Ogre::ST_GENERIC);
@@ -48,12 +47,12 @@ int run()
   std::string windowHndStr = windowHndStream.str();
 
   OIS::ParamList specialParameters;
-  //#ifdef OIS_LINUX_PLATFORM
-    specialParameters.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
-    specialParameters.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
-    specialParameters.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
-    specialParameters.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
-  //#endif
+  #ifdef OIS_LINUX_PLATFORM
+  specialParameters.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
+  specialParameters.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
+  specialParameters.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
+  specialParameters.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
+  #endif
   specialParameters.insert(std::make_pair(std::string("WINDOW"), windowHndStr));
 
   OIS::InputManager* inputManager = OIS::InputManager::createInputSystem(specialParameters);
@@ -61,7 +60,7 @@ int run()
   OIS::Keyboard* keyboard = static_cast<OIS::Keyboard*>(inputManager->createInputObject(OIS::OISKeyboard, false));
   OIS::Mouse* mouse = static_cast<OIS::Mouse*>(inputManager->createInputObject(OIS::OISMouse, false));
 
-  View::Main view(*window.get(), *sceneManager, *camera, *cameraNode, *viewport);
+  View::Main view(*window, *sceneManager, *camera, *cameraNode, *viewport);
 
   Controller::Main controller(view);
 
@@ -80,6 +79,7 @@ int run()
   delete cameraNode;
   delete camera;
   delete sceneManager;
+  delete window;
 
   return 0;
 }
