@@ -10,10 +10,6 @@ set(CMAKE_CXX_FLAGS "-Wall -g -std=c++11")
 # find all dependencies
 find_package(OGRE REQUIRED)
 find_package(OIS REQUIRED)
-find_package(Bullet REQUIRED)
-find_package(OgreBullet REQUIRED)
-
-message(${OgreBullet_LIBRARIES})
 
 # GUI Type
 if(WIN32)
@@ -43,8 +39,6 @@ endforeach()
 include_directories(${OGRESNAKE_SOURCE_PATH})
 include_directories(${ALL_OGRE_INCLUDE_DIRS})
 include_directories(${OIS_INCLUDE_DIRS})
-include_directories(${BULLET_INCLUDE_DIRS})
-include_directories(${OgreBullet_INCLUDE_DIRS})
 
 # ogresnake project, create executable out of all source files in src/
 file(GLOB_RECURSE OGRESNAKE_SOURCE_FILES ${OGRESNAKE_SOURCE_PATH}/*.cpp)
@@ -64,8 +58,8 @@ configure_file("${OGRESNAKE_SOURCE_PATH}/config/resources.cfg.in"
 file(COPY ${OGRESNAKE_SOURCE_DIR}/media DESTINATION ${OGRESNAKE_BINARY_DIR})
 
 if(UNIX)
-  target_link_libraries(ogresnake ${ALL_OGRE_LIBS} ${OIS_LIBRARIES} ${BULLET_LIBRARIES} ${OgreBullet_LIBRARIES})
+  target_link_libraries(ogresnake ${ALL_OGRE_LIBS} ${OIS_LIBRARIES})
 endif()
 if(WIN32)
-  target_link_libraries(ogresnake ${ALL_OGRE_LIBS} ${OIS_LIBRARIES} ${BULLET_LIBRARIES} ${OgreBullet_LIBRARIES})
+  target_link_libraries(ogresnake ${ALL_OGRE_LIBS} ${OIS_LIBRARIES})
 endif()
