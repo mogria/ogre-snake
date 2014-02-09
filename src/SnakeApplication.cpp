@@ -27,7 +27,7 @@ void SnakeApplication::createScene(void)
       
       node->setScale(Scaling,Scaling,Scaling);
       node->setPosition(mesh->getBoundingBox().getSize().x * Scaling * numX, mesh->getBoundingBox().getSize().y * Scaling * numY, 0.0);
-      node->attachObject(mesh->clone(Ogre::StringConverter::toString(numX + numY) + "Yolocube"));
+      node->attachObject(mesh->clone(Ogre::StringConverter::toString(numY) + Ogre::StringConverter::toString(numX) + "Yolocube"));
 
       Ogre::LogManager::getSingleton().logMessage(Ogre::StringConverter::toString(node->getPosition()));
     }
