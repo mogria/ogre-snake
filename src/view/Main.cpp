@@ -18,15 +18,7 @@ Main::Main( Ogre::RenderWindow& _window,
     cameraNode(_cameraNode),
     viewport(_viewport) {
 
-    std::ifstream file("media/models/cube.mesh");
-    std::cout << "opened file ... " << (file.is_open() ? "sucessfully" : "errorously") << std::endl;
-    Ogre::FileStreamDataStream cubeFile(&file, true);
-
-    Ogre::MeshPtr pMesh = Ogre::MeshManager::getSingleton().createManual("BlockMesh", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-    Ogre::MeshSerializer serializer;
-    Ogre::DataStreamPtr stream(&cubeFile);
-    serializer.importMesh(stream, pMesh.getPointer());
-    Ogre::Entity* mesh = scene.createEntity("yoloblock", "BlockMesh");
+    Ogre::Entity* mesh = scene.createEntity("yoloblock", "cube.mesh");
     Ogre::SceneNode* node = scene.getRootSceneNode()->createChildSceneNode();
     node->setPosition(0, 0.5, 0);
     node->attachObject(mesh);
