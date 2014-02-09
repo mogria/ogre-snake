@@ -11,26 +11,34 @@ SnakeApplication::~SnakeApplication(void)
 
 void SnakeApplication::createScene(void)
 {
+  float Spacing = 0.1;
+  float Scaling = 0.1;
+  int numX = 10;
+  int numY = 10;
 
-  Ogre::Entity* mesh = mSceneMgr->createEntity("yoloblock", "cube.mesh");
-  Ogre::SceneNode* node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-  node->setPosition(0.0, 100.0, 0.0);
-  node->attachObject(mesh);
+  Ogre::Entity* mesh = mSceneMgr->createEntity("cube.mesh");
 
-  mCamera->lookAt(node->getPosition());
+  while(numX-- > 0)
+  {
+    while(numY-- > 0)
+    {
+      Ogre::SceneNode* node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+      
+      node->setScale(Scaling,Scaling,Scaling);
+      node->setPosition(mesh->getBoundingBox().getSize().x * Scaling * numX, mesh->getBoundingBox().getSize().y * Scaling * numY, 0.0);
+      node->attachObject(mesh->clone(Ogre::StringConverter::toString(numX + numY) + "Yolocube"));
 
-  mSceneMgr->setAmbientLight(Ogre::ColourValue(.1, .1, .1));
+      Ogre::LogManager::getSingleton().logMessage(Ogre::StringConverter::toString(node->getPosition()));
+    }
+  }
+
+  mCamera->lookAt(.0,.0,.0);
+  mCamera->setPosition(Ogre::Vector3(0.0, -20.0, 0.0));
+
+  mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
   Ogre::Light* light = mSceneMgr->createLight();
   light->setPosition(.0, .0, .0);
   light->setPowerScale(5);
-
-  light = mSceneMgr->createLight();
-  light->setPosition(20.0, 120.0, .0);
-  light->setPowerScale(2);
-
-  light = mSceneMgr->createLight();
-  light->setPosition(-20.0, 120.0, .0);
-  light->setPowerScale(2);
 }
 
 
