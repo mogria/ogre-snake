@@ -14,12 +14,23 @@ void SnakeApplication::createScene(void)
 
   Ogre::Entity* mesh = mSceneMgr->createEntity("yoloblock", "cube.mesh");
   Ogre::SceneNode* node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-  node->setPosition(0, 0.5, 0);
+  node->setPosition(0.0, 100.0, 0.0);
   node->attachObject(mesh);
 
   mCamera->lookAt(node->getPosition());
 
-  mSceneMgr->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
+  mSceneMgr->setAmbientLight(Ogre::ColourValue(.1, .1, .1));
+  Ogre::Light* light = mSceneMgr->createLight();
+  light->setPosition(.0, .0, .0);
+  light->setPowerScale(5);
+
+  light = mSceneMgr->createLight();
+  light->setPosition(20.0, 120.0, .0);
+  light->setPowerScale(2);
+
+  light = mSceneMgr->createLight();
+  light->setPosition(-20.0, 120.0, .0);
+  light->setPowerScale(2);
 }
 
 
