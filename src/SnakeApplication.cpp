@@ -23,9 +23,10 @@ void SnakeApplication::createScene(void)
   Ogre::Entity* mesh = mSceneMgr->createEntity("cube.mesh");
   
   Ogre::SceneNode* node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+  node->attachObject(mesh);
+  
   node->setScale(Scaling,Scaling,Scaling);
   node->setPosition(0.0,0.0,0.0);
-  node->attachObject(mesh);
   /*
   Ogre::Entity* mesh = mSceneMgr->createEntity("cube.mesh");
 
