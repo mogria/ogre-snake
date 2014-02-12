@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\BaseApplication.cpp" />
+    <ClCompile Include="..\..\src\BlockRenderer.cpp" />
     <ClCompile Include="..\..\src\model\Block.cpp" />
     <ClCompile Include="..\..\src\model\Map.cpp" />
     <ClCompile Include="..\..\src\model\Snake.cpp" />
@@ -19,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\BaseApplication.h" />
+    <ClInclude Include="..\..\src\BlockRenderer.h" />
     <ClInclude Include="..\..\src\model\Block.h" />
     <ClInclude Include="..\..\src\model\Map.h" />
     <ClInclude Include="..\..\src\model\Snake.h" />
