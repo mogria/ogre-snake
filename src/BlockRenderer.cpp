@@ -1,15 +1,26 @@
 #include "BlockRenderer.h"
+#include <OgreMeshManager.h>
+#include <OgreResourceGroupManager.h>
 
 BlockRenderer::BlockRenderer(Ogre::SceneManager* _scene)
   : mSceneMgr(_scene)
 {
+  Ogre::MeshManager& meshManager = Ogre::MeshManager::getSingleton();
+  mMesh = meshManager.load("cube.mesh",
+      Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+}
 
+BlockRenderer::~BlockRenderer() {
+  /* for(std::list<Ogre::SceneNode*>::iterator it = mCubes.begin; mCubes.back != it; it++)
+  {
+    it->
+  } */
 }
 
 
 void BlockRenderer::render(Model::map_coords xy, const Model::Block& block) {
   float scaling = 0.1;
-  Ogre::Entity* entity = mSceneMgr->createEntity("cube.mesh");
+  Ogre::Entity* entity = mSceneMgr->createEntity(mMesh);
   Ogre::SceneNode* node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
   
   node->setScale(scaling, scaling, scaling);
@@ -35,9 +46,3 @@ void BlockRenderer::render(Model::map_coords xy, const Model::SnakePart& block) 
 void BlockRenderer::render(Model::map_coords xy, const Model::SnakeHead& block) {
 }
 
-BlockRenderer::~BlockRenderer() {
-  for(std::list<Ogre::SceneNode*>::iterator it = mCubes.begin; mCubes.back != it; it++)
-  {
-    it->
-  }
-}
