@@ -1,6 +1,7 @@
 #include "BlockRenderer.h"
 #include <OgreMeshManager.h>
 #include <OgreResourceGroupManager.h>
+#include <OgreSubEntity.h>
 
 BlockRenderer::BlockRenderer(Ogre::SceneManager* _scene)
   : mSceneMgr(_scene) {
@@ -36,7 +37,22 @@ Ogre::SceneNode* BlockRenderer::getOrCreateBlock(Model::map_coords xy) {
 }
 
 void BlockRenderer::render(Model::map_coords xy, const Model::Block& block) {
-  getOrCreateBlock(xy);
+  Ogre::SceneNode* node = getOrCreateBlock(xy);
+  Ogre::Entity* entity = static_cast<Ogre::Entity*>(node->getAttachedObject(0));
+
+  // this changes the color of the entitiy,
+  // TODO: but it changes the color of all entities (which is not intended)
+  // I presume this is because all entities use the same material/mesh
+  unsigned int num_entities = entity->getNumSubEntities();
+  for(unsigned int counter = 0; counter < num_entities; counter++)
+  {
+    Ogre::SubEntity *subentity= entity->getSubEntity(counter);
+    if(subentity)
+    {
+      Ogre::MaterialPtr material = subentity->getMaterial();
+      material->setAmbient(0, 0, 255);
+    }
+  }
 }
 
 void BlockRenderer::render(Model::map_coords xy, const Model::EmptyBlock& block) {
